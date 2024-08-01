@@ -1,4 +1,4 @@
-# Qiwa Contracts to Excel
+# Qiwa Contracts to Excel converter
 
 ## About
 Qiwa Contracts to Excel is an open-source web application that allows users to bulk convert Qiwa Contracts (in PDF format) into a single, organized Excel file. This tool streamlines the process of extracting and collating information from multiple employment contracts, making it easier for HR professionals, managers, and employees to manage and analyze contract data.
