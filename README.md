@@ -78,6 +78,5 @@ This tool is not officially affiliated with or endorsed by Qiwa or any governmen
 If you encounter any issues or have questions, please file an issue on the GitHub issue tracker.
 
 ## Acknowledgements
-- Thanks to all contributors who have helped to build and improve this tool.
 - Special thanks to the open-source community for providing the libraries and tools that make this project possible.
 
