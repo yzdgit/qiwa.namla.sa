@@ -24,3 +24,10 @@ steps:
 
 images:
   - 'gcr.io/$PROJECT_ID/pdf-processor:$COMMIT_SHA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+serviceAccount: 'projects/$PROJECT_ID/718485497760-compute@developer.gserviceaccount.com'
+
+
