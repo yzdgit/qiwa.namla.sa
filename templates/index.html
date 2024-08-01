@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-gray-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qiwa Contracts to Excel</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/htmx/1.9.6/htmx.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col justify-center items-center bg-gray-100">
+    <div class="w-full max-w-lg">
+        <header class="text-center mb-8">
+            <div class="flex justify-center items-center mb-4">
+                <img class="h-12 w-12" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Qiwa Contracts to Excel">
+            </div>
+            <h1 class="text-3xl font-bold text-indigo-600">Qiwa Contracts to Excel</h1>
+            <p class="mt-2 text-lg text-gray-600">Convert your Qiwa contracts to organized Excel sheets</p>
+        </header>
+
+        <main>
+            <div class="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
+                <div class="px-4 py-5 sm:px-6">
+                    <h2 class="text-lg leading-6 font-medium text-gray-900 text-center">Upload Your Contracts</h2>
+                    <p class="mt-1 text-sm text-gray-500 text-center">Select 1-10 PDF files, up to 1MB each</p>
+                </div>
+                <div class="px-4 py-5 sm:p-6">
+                    <form hx-post="/upload" hx-encoding="multipart/form-data" hx-target="#result">
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                            <div class="space-y-1 text-center">
+                                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <div class="flex text-sm text-gray-600 justify-center">
+                                    <label for="pdf_files" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                        <span>Upload PDFs</span>
+                                        <input id="pdf_files" name="pdf_files" type="file" class="sr-only" multiple accept=".pdf" onchange="updateFileList(this)">
+                                    </label>
+                                    <p class="pl-1">or drag and drop</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="fileList" class="mt-2 text-sm text-gray-500 text-center"></div>
+                        <div class="mt-5 flex justify-center">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Process PDFs
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="result" class="mt-6"></div>
+        </main>
+    </div>
+
+    <script>
+        function updateFileList(input) {
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = '';
+            if (input.files.length > 10) {
+                alert('Please select no more than 10 files.');
+                input.value = '';
+                return;
+            }
+            for (let i = 0; i < input.files.length; i++) {
+                if (input.files[i].size > 1024 * 1024) {
+                    alert('Each file must be less than 1MB. Please select smaller files.');
+                    input.value = '';
+                    fileList.innerHTML = '';
+                    return;
+                }
+                const fileName = document.createElement('p');
+                fileName.textContent = input.files[i].name;
+                fileList.appendChild(fileName);
+            }
+        }
+    </script>
+</body>
+</html>
